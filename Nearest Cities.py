@@ -1,3 +1,5 @@
+import random
+
 def find_square_distance(pos1, pos2):
     return abs(pos1[0] - pos2[0]) ** 2 + abs(pos1[1] - pos2[1]) ** 2
 
@@ -5,7 +7,11 @@ def find_nearest_cities(truck, cities, k):
     citylist = [[find_square_distance(truck, v), k] for k, v in cities.items()]
     start, end = 0, len(cities)
     while True:
-        pivot, border = start, start
+        if start < end:
+            pivot = random.randrange(start, end)
+        elif start > end:
+            pivot = random.randrange(end, start)
+        border = start
         for j in range(start, end):
             if j == pivot:
                 continue
@@ -28,4 +34,4 @@ tests = [[[3, 5], {'a': [54, 32]}, 1],
 
 for test in tests:
     print(find_nearest_cities(test[0], test[1], test[2]))
-
+    
